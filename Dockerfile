@@ -1,13 +1,12 @@
 FROM alpine:latest
 
-RUN apk add --no-cache ca-certificates
+RUN apk add --no-cache ca-certificates unzip wget
 
 WORKDIR /app
 
-COPY pocketbase /app/pocketbase
-COPY pb_data /app/pb_data
-
-RUN chmod +x /app/pocketbase
+RUN wget https://github.com/pocketbase/pocketbase/releases/download/v0.22.7/pocketbase_0.22.7_linux_amd64.zip \
+    && unzip pocketbase_0.22.7_linux_amd64.zip \
+    && chmod +x pocketbase
 
 EXPOSE 8080
 
